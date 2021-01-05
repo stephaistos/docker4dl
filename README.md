@@ -1,5 +1,5 @@
 # docker4dl
-docker-compose file for setting up common torrent download tools behind VPN (radarr/sonarr/jackett/deluge/gluetun/flaresolverr)
+docker-compose file for setting up common torrent download tools behind VPN (radarr/sonarr/lidarr/jackett/deluge/gluetun/flaresolverr/ombi)
 
 General idea is to have access to all the tools through web interface while they all run on separate docker containers using a VPN.
 Created for my Synology NAS, extra details will be given for that specific case.
@@ -9,10 +9,12 @@ Separate docker containers for each service, all using gluetun container (VPN) f
 
 - [radarr](https://github.com/Radarr/Radarr) : movie collection manager
 - [sonarr](https://github.com/Sonarr/Sonarr) : tvshow collection manager
+- [lidarr](https://github.com/lidarr/Lidarr) : music collection manager
 - [jackett](https://github.com/Jackett/Jackett) : bitTorrent indexer
 - [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) : required for some jackett indexer login
 - [deluge](https://github.com/deluge-torrent/deluge) : bitTorrent client to download content
 - [gluetun](https://github.com/qdm12/gluetun) : lightweight vpn client
+- [ombi](https://github.com/tidusjar/Ombi) : handling requests for downloading new content
 
 Based on [wbollock work](https://github.com/wbollock/Radarr-and-Sonarr-Setup/blob/master/Docker-Compose_Setup.md)
 
@@ -79,9 +81,13 @@ RADARR_CONFIG_PATH=/etc/radarr/
 
 SONARR_CONFIG_PATH=/etc/sonarr/
 
+LIDARR_CONFIG_PATH=/etc/lidarr/
+
 DELUGE_CONFIG_PATH=/etc/deluge/
 
 JACKETT_CONFIG_PATH=/etc/jackett/
+
+OMBI_CONFIG_PATH=/etc/ombi/
 
 OPENVPN_CONFIG=/etc/openvpnconfig/
 ```
@@ -97,10 +103,10 @@ TVSHOWS=/volume1/Torrents/Tvshows
 
 Once these folders are created, make sure they have the right ownership.
 
-`sudo chown -R USER:USERGROUP RADARR_CONFIG_PATH SONARR_CONFIG_PATH DELUGE_CONFIG_PATH JACKETT_CONFIG_PATH OPENVPN_CONFIG`
+`sudo chown -R USER:USERGROUP RADARR_CONFIG_PATH SONARR_CONFIG_PATH LIDARR_CONFIG_PATH DELUGE_CONFIG_PATH JACKETT_CONFIG_PATH OMBI_CONFIG_PATH OPENVPN_CONFIG`
 
 Example:
-`sudo chown -R bob:users /etc/radarr/ /etc/deluge/ /etc/sonarr/ /etc/jackett/ /etc/openvpnconfig/`
+`sudo chown -R bob:users /etc/radarr/ /etc/deluge/ /etc/sonarr/ /etc/lidarr /etc/jackett/ /etc/ombi /etc/openvpnconfig/`
 
 
 # OpenVPN configuration for gluetun container
@@ -193,5 +199,10 @@ Add Deluge (similar to what was done for Sonarr)
 
 Add indexers.
 
+### Radarr:
 
+Visit `http://SERVER_IP:8686/`
 
+### Ombi:
+
+Visit `http://SERVER_IP:3579/`

@@ -23,6 +23,8 @@ services:
       - 7878:7878 # radarr
       - 8989:8989 # sonarr
       - 9117:9117 # jackett
+      - 3579:3579 # ombi
+      - 8686:8686 # lidarr      
     volumes:
       - OPENVPN_CONFIG:/gluetun   #/etc/openvpnconfig/:/gluetun
     restart: unless-stopped
@@ -96,3 +98,31 @@ services:
       - HARVESTER_ENDPOINT=https://127.0.0.1:5000/token
     network_mode: "service:gluetun"
     restart: unless-stopped 
+
+  ombi:
+    image: ghcr.io/linuxserver/ombi
+    container_name: ombi
+    environment:
+      - PUID=
+      - PGID=
+      - TZ=
+      - BASE_URL=/ombi #optional
+    volumes:
+      - OMBI_CONFIG_PATH:/config    #/etc/ombi:/config
+    network_mode: "service:gluetun"
+    restart: unless-stopped
+
+  lidarr:
+    image: ghcr.io/linuxserver/lidarr
+    container_name: lidarr
+    environment:
+      - PUID=
+      - PGID=
+      - TZ=
+      - UMASK_SET=022 #optional
+    volumes:
+      - LIDARR_CONFIG_PATH:/config    #/etc/lidarr:/config
+      - MUSIC:/music    #/volume1/Torrents/Music/:/music
+      - DOWNLOAD_FOLDER:/downloads
+    network_mode: "service:gluetun"
+    restart: unless-stopped
