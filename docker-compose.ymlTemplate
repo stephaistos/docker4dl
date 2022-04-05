@@ -41,7 +41,7 @@ services:
      - PUID=
      - PGID=
      - TZ=
-    image: linuxserver/radarr
+    image: lscr.io/linuxserver/radarr
 
   sonarr:
     container_name: sonarr
@@ -55,7 +55,7 @@ services:
      - PUID=
      - PGID=
      - TZ=
-    image: linuxserver/sonarr
+    image: lscr.io/linuxserver/sonarr
 
   jackett:
     container_name: jackett
@@ -67,10 +67,10 @@ services:
      - PUID=
      - PGID=
      - TZ=
-    image: linuxserver/jackett
+    image: lscr.io/linuxserver/jackett
 
   deluge:
-    image: linuxserver/deluge
+    image: lscr.io/linuxserver/deluge
     container_name: deluge
     network_mode: "service:gluetun"
     environment:
@@ -100,7 +100,7 @@ services:
     restart: unless-stopped 
 
   ombi:
-    image: ghcr.io/linuxserver/ombi
+    image: lscr.io/linuxserver/ombi
     container_name: ombi
     environment:
       - PUID=
@@ -113,7 +113,7 @@ services:
     restart: unless-stopped
 
   lidarr:
-    image: ghcr.io/linuxserver/lidarr
+    image: lscr.io/linuxserver/lidarr
     container_name: lidarr
     environment:
       - PUID=
