@@ -26,7 +26,7 @@ services:
       - 3579:3579 # ombi
       - 8686:8686 # lidarr      
     volumes:
-      - OPENVPN_CONFIG:/gluetun   #/etc/openvpnconfig/:/gluetun
+      - OPENVPN_CONFIG:/gluetun   #/volume1/openvpnconfig/:/gluetun
     restart: unless-stopped
 
   radarr:
@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
     network_mode: "service:gluetun"
     volumes:
-      - RADARR_CONFIG_PATH:/config   #/etc/radarr/:/config
+      - RADARR_CONFIG_PATH:/config   #/volume1/Radarr/etc/radarr/:/config
       - FILMS:/movies   #/volume1/Torrents/Films/:/movies
       - DOWNLOAD_FOLDER:/downloads   #/volume1/Torrents/DownloadsDeluge/:/downloads
     environment:
@@ -48,7 +48,7 @@ services:
     restart: unless-stopped
     network_mode: "service:gluetun"
     volumes:
-      - SONARR_CONFIG_PATH:/config   #/etc/sonarr/:/config
+      - SONARR_CONFIG_PATH:/config   #/volume1/Sonarr/etc/sonarr/:/config
       - TVSHOWS:/tvseries   #/volume1/Torrents/Tvshows/:/tvseries
       - DOWNLOAD_FOLDER:/downloads   #/volume1/Torrents/DownloadsDeluge/:/downloads
     environment:
